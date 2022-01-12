@@ -7,10 +7,9 @@
     "node": "16.13.1"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc & node build/deploy-commands.js",
     "start": "node build/index.js",
-    "dev": "tsc -w & node build/index.js",
-    "deploy:commands": "tsc & node build/deploy-commands.js"
+    "dev": "tsc -w & node build/index.js"
   },
   "author": "",
   "license": "ISC",
