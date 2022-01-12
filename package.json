@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "node build/index.js & node build/deploy-commands.js",
+    "start": "node build/index.js && node build/deploy-commands.js",
     "dev": "tsc -w & node build/index.js",
     "deploy:commands": "tsc & node build/deploy-commands.js"
   },
