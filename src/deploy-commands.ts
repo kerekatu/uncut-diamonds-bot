@@ -1,16 +1,13 @@
 import { REST } from '@discordjs/rest'
 import { Routes } from 'discord-api-types/v9'
 import config from './config'
-import { SlashCommandBuilder } from '@discordjs/builders'
 import * as commandModules from './commands'
+import { Command } from './types'
+import { SlashCommandBuilder } from '@discordjs/builders'
 
-type Command = {
-  data: SlashCommandBuilder
-}
+const commands: SlashCommandBuilder[] = []
 
-const commands = []
-
-for (const module of Object.values<Command>(commandModules)) {
+for (const module of Object.values<Command>(commandModules as any)) {
   commands.push(module.data)
 }
 
@@ -20,5 +17,5 @@ rest
   .put(Routes.applicationGuildCommands(config.APP_ID, config.GUILD_ID), {
     body: commands,
   })
-  .then(() => console.log('Successful'))
+  .then(() => console.log('Commands deployed successfully'))
   .catch((err) => console.error(err))

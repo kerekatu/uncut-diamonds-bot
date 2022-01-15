@@ -1,1 +1,1 @@
-export * as help from './help'
+export * as info from './info'
