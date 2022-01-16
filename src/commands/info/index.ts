@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 import {
   CommandInteraction,
+  HexColorString,
   MessageActionRow,
   MessageButton,
   MessageComponentInteraction,
@@ -8,6 +9,7 @@ import {
 } from 'discord.js'
 import fetch from 'isomorphic-fetch'
 import { ShopItem } from '../../types'
+import { CONSTANTS } from '../../utils/constants'
 import { addSpaceEveryCharacter } from '../../utils/helpers'
 
 export const data = new SlashCommandBuilder()
@@ -28,6 +30,7 @@ export const data = new SlashCommandBuilder()
 export async function execute(interaction: CommandInteraction) {
   if (interaction.options.getString('kategoria') === 'strona') {
     const embed = new MessageEmbed()
+      .setColor(CONSTANTS.color)
       .setTitle('Strona Internetowa')
       .setDescription(`https://uncutdiamonds.top`)
 
@@ -64,6 +67,7 @@ export async function execute(interaction: CommandInteraction) {
         .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
       return new MessageEmbed()
+        .setColor(CONSTANTS.color)
         .setAuthor({
           name: 'LISTA PRZEDMIOTÓW • SKLEP',
           url: 'https://uncutdiamonds.top/shop',
@@ -112,10 +116,13 @@ export async function execute(interaction: CommandInteraction) {
     })
 
     const filter = (i: MessageComponentInteraction) =>
-      i.customId === buttonNextId || i.customId === buttonPreviousId
+      interaction.user.id === i.user.id &&
+      (i.customId === buttonNextId || i.customId === buttonPreviousId)
 
     const collector = interaction.channel?.createMessageComponentCollector({
       filter,
+      componentType: 'BUTTON',
+      time: 1000 * 60,
     })
 
     collector?.on('collect', async (i) => {
@@ -149,6 +156,7 @@ export async function execute(interaction: CommandInteraction) {
     })
   } else if (interaction.options.getString('kategoria') === 'dotacje') {
     const embed = new MessageEmbed()
+      .setColor(CONSTANTS.color)
       .setTitle('Dotacje na serwer')
       .setDescription('https://tipply.pl/u/uncutdiamonds')
 

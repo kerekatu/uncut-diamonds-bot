@@ -20,7 +20,7 @@ client.on('interactionCreate', async (interaction) => {
     const { commandName } = interaction
     commands[commandName].execute(interaction, client)
   } catch (error) {
-    console.error(error)
+    console.log(error)
     await interaction.reply({
       content: 'Wystąpił błąd przy wykonywaniu komendy!',
       ephemeral: true,
