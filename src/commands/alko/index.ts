@@ -73,7 +73,11 @@ export async function execute(interaction: CommandInteraction) {
             .join(' ')}`
         )
         .setFooter({
-          text: `Strona ${currentPage}/${numberOfPages} • ${productsCount} trunków`,
+          text: `Strona ${currentPage}/${numberOfPages} • ${
+            productsCount === 1
+              ? productsCount + ' trunek'
+              : productsCount + ' trunków'
+          }`,
         })
     }
 
@@ -146,7 +150,9 @@ export async function execute(interaction: CommandInteraction) {
       .setImage(
         `${
           randomItem?.link
-            ? CONSTANTS.URL_BEERS + '/' + randomItem.link
+            ? randomItem.link.includes('upload/')
+              ? CONSTANTS.URL_BEERS + '/' + randomItem.link
+              : CONSTANTS.URL_ALCO + '/' + randomItem.link
             : 'https://i.imgur.com/zR2tkVq.png'
         } `
       )
