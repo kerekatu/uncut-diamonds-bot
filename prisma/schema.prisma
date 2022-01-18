@@ -16,3 +16,9 @@ model Alcohols {
   link   String?
   userId String?
 }
+
+model Birthdays {
+  id     Int    @id @default(autoincrement())
+  date   String
+  userId String @unique
+}

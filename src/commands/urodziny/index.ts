@@ -1,20 +1,23 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 import {
   CommandInteraction,
+  GuildMember,
+  GuildMemberRoleManager,
   HexColorString,
   MessageActionRow,
   MessageButton,
   MessageComponentInteraction,
   MessageEmbed,
 } from 'discord.js'
-import fetch from 'isomorphic-fetch'
-import { ShopItem } from '../../types'
-import { CONSTANTS } from '../../utils/constants'
-import { addSpaceEveryCharacter, daysInMonth } from '../../utils/helpers'
+import { daysInMonth } from '../../utils/helpers'
+import schedule from 'node-schedule'
+import { Prisma, PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 export const data = new SlashCommandBuilder()
   .setName('urodziny')
-  .setDescription('💡 Wyświetla informacje na temat serwera')
+  .setDescription('🎂 Dodaj swoje urodziny do kalendarza')
   .addNumberOption((option) =>
     option
       .setName('dzień')
@@ -61,7 +64,43 @@ export async function execute(interaction: CommandInteraction) {
     return await interaction.reply('Błędna data!')
   }
 
-  return await interaction.reply(
-    `Twoja data to ${[day, month, year].join('.')}`
-  )
+  const birthdayExists = await prisma.birthdays.findUnique({
+    where: { userId: interaction.member?.user.id },
+  })
+
+  if (birthdayExists)
+    return await interaction.reply('Twoje urodziny są już ustawione!')
+
+  const birthday = await prisma.birthdays.create({
+    data: <Prisma.BirthdaysCreateInput>{
+      date: `${day}.${month}.${year}`,
+      userId: interaction.member?.user.id,
+    },
+  })
+
+  if (birthday) {
+    const date = [...birthday.date.split('.')]
+    schedule.scheduleJob(
+      birthday.userId,
+      { date: date[0], month: date[1] },
+      () => {
+        const randomId = Math.floor(Math.random() * 100 + Date.now()).toString()
+        const role = interaction.guild?.roles.cache.find(
+          (role) => role.name === 'Urodziny'
+        )
+
+        if (!role) return
+
+        const roles = <GuildMemberRoleManager>interaction.member?.roles
+        roles.add(role)
+
+        schedule.scheduleJob(randomId, { minute: 59, hour: 23 }, () => {
+          roles.remove(role)
+          schedule.cancelJob(randomId)
+        })
+      }
+    )
+
+    return await interaction.reply('Pomyślnie dodano urodziny!')
+  }
 }

@@ -17,7 +17,7 @@ const recentlyUsed = new Set()
 
 export const data = new SlashCommandBuilder()
   .setName('alko')
-  .setDescription('Gra w zbieranie trunków')
+  .setDescription('🍺 Gra w zbieranie trunków')
   .addUserOption((option) =>
     option.setName('gracz').setDescription('Wybierz gracza')
   )
