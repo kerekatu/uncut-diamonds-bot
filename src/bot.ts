@@ -20,15 +20,27 @@ client.once('ready', async () => {
   const guild = await client.guilds.fetch(`${process.env.GUILD_ID}`)
 
   const list: { activity: string; type: ActivitiesOptions['type'] }[] = [
-    { activity: 'zabawa kuleczkami bucza', type: 'PLAYING' },
-    { activity: 'najebany już jak ściana', type: 'LISTENING' },
+    { activity: 'nawalony już jak ściana', type: 'LISTENING' },
+    { activity: 'https://uncutdiamonds.top', type: 'WATCHING' },
     { activity: 'przywołuje demona hybrydę', type: 'STREAMING' },
+    { activity: 'twitch.tv/tunczyczka', type: 'WATCHING' },
     { activity: '/alko', type: 'PLAYING' },
     { activity: `wraz z ${guild.memberCount} diamentami`, type: 'PLAYING' },
   ]
-  client.user?.setActivity(list[1].activity, {
-    type: list[1].type,
+
+  client.user?.setActivity(list[0].activity, {
+    type: list[0].type,
   })
+
+  let index = 1
+  setInterval(() => {
+    if (index < list.length) index++
+    if (index === list.length) index = 0
+
+    client.user?.setActivity(list[index].activity, {
+      type: list[index].type,
+    })
+  }, 1000 * 60 * 15)
 })
 
 client.on('interactionCreate', async (interaction) => {
