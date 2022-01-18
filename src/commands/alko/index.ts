@@ -143,7 +143,13 @@ export async function execute(interaction: CommandInteraction) {
     const embed = new MessageEmbed()
       .setColor(CONSTANTS.color)
       .setTitle(randomItem.title)
-      .setImage(`${CONSTANTS.URL_BEERS}/${randomItem.link}`)
+      .setImage(
+        `${
+          randomItem?.link
+            ? CONSTANTS.URL_BEERS + '/' + randomItem.link
+            : 'https://i.imgur.com/zR2tkVq.png'
+        } `
+      )
 
     if (recentlyUsed.has(interaction.member?.user.id)) {
       interaction.reply('Poczekaj minutę przed następnym użyciem...')
