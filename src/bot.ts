@@ -26,15 +26,9 @@ client.once('ready', async () => {
     { activity: '/alko', type: 'PLAYING' },
     { activity: `wraz z ${guild.memberCount} diamentami`, type: 'PLAYING' },
   ]
-  let index = 0
-  setInterval(() => {
-    if (index < list.length) index++
-    if (index === list.length) index = 0
-
-    client.user?.setActivity(list[index].activity, {
-      type: list[index].type,
-    })
-  }, 1000 * 60 * 30)
+  client.user?.setActivity(list[1].activity, {
+    type: list[1].type,
+  })
 })
 
 client.on('interactionCreate', async (interaction) => {
