@@ -34,10 +34,13 @@ client.once('ready', async () => {
       async () => {
         const randomId = Math.floor(Math.random() * 100 + Date.now()).toString()
         const user = guild?.members.cache.get(birthday.userId)
-        user?.roles.add('933011458864840774')
+        const role = guild?.roles.cache.find((role) => role.name === 'Urodziny')
+        if (!role) return
+
+        user?.roles.add(role)
 
         schedule.scheduleJob(randomId, { minute: 59, hour: 23 }, () => {
-          user?.roles.remove('933011458864840774')
+          user?.roles.remove(role)
           schedule.cancelJob(randomId)
         })
       }
