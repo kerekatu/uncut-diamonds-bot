@@ -1,7 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 import {
   CommandInteraction,
-  HexColorString,
   MessageActionRow,
   MessageButton,
   MessageComponentInteraction,

@@ -63,14 +63,18 @@ export async function execute(interaction: CommandInteraction) {
         })
         .addField(
           'LISTA GRACZA • TRUNKI',
-          `${products
-            .map(
-              (item, index) =>
-                `**${index + 1 + (currentPage - 1) * itemsPerPage}.** ${
-                  item.title
-                }\n`
-            )
-            .join(' ')}`
+          `${
+            products
+              ? products
+                  .map(
+                    (item, index) =>
+                      `**${index + 1 + (currentPage - 1) * itemsPerPage}.** ${
+                        item.title
+                      }\n`
+                  )
+                  .join(' ')
+              : 'Twoja lista jest pusta'
+          }`
         )
         .setFooter({
           text: `Strona ${currentPage}/${numberOfPages} • ${
@@ -151,8 +155,8 @@ export async function execute(interaction: CommandInteraction) {
         `${
           randomItem?.link
             ? randomItem.link.includes('upload/')
-              ? CONSTANTS.URL_BEERS + '/' + randomItem.link
-              : CONSTANTS.URL_ALCO + '/' + randomItem.link
+              ? CONSTANTS.IMAGE_URLS.beer + '/' + randomItem.link
+              : CONSTANTS.IMAGE_URLS.alco + '/' + randomItem.link
             : 'https://i.imgur.com/zR2tkVq.png'
         } `
       )

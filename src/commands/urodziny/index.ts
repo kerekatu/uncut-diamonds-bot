@@ -1,14 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
-import {
-  CommandInteraction,
-  GuildMember,
-  GuildMemberRoleManager,
-  HexColorString,
-  MessageActionRow,
-  MessageButton,
-  MessageComponentInteraction,
-  MessageEmbed,
-} from 'discord.js'
+import { CommandInteraction, GuildMemberRoleManager } from 'discord.js'
 import { daysInMonth } from '../../utils/helpers'
 import schedule from 'node-schedule'
 import { Prisma, PrismaClient } from '@prisma/client'

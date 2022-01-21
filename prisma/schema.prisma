@@ -22,3 +22,15 @@ model Birthdays {
   date   String
   userId String @unique
 }
+
+model Questions {
+  id           Int  @id @default(autoincrement())
+  questions    Json
+  currentIndex Int
+}
+
+model Channels {
+  id          Int    @id @default(autoincrement())
+  channelId   String
+  commandName String @unique
+}
