@@ -1,7 +1,8 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 import { PrismaClient } from '@prisma/client'
 import { ChannelType } from 'discord-api-types'
-import { CommandInteraction } from 'discord.js'
+import { Client, CommandInteraction } from 'discord.js'
+import initQuestions from '../../events/init-questions'
 import { COMMANDS } from '../../utils/constants'
 
 const prisma = new PrismaClient()
@@ -23,7 +24,7 @@ export const data = new SlashCommandBuilder()
       )
   )
 
-export async function execute(interaction: CommandInteraction) {
+export async function execute(interaction: CommandInteraction, client: Client) {
   if (
     interaction.options.getSubcommand() ===
     COMMANDS.admin.subCommands.pytania.name
@@ -57,6 +58,8 @@ export async function execute(interaction: CommandInteraction) {
         content: 'Nie udało się dodać danych do bazy!',
         ephemeral: true,
       })
+
+    await initQuestions(client)
 
     return await interaction.reply({
       content: 'Kanał do pytań został pomyślnie ustawiony!',
