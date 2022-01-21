@@ -18,7 +18,7 @@ export default async function initQuestions(client: Client) {
 
   if (!channel) return console.error('Błąd zapytania')
 
-  const guildChannel = await client.channels.fetch(channel.channelId)
+  const guildChannel = client.channels.cache.get(channel.channelId)
 
   if (!guildChannel || !guildChannel.isText())
     return console.error('Taki kanał nie istnieje')
