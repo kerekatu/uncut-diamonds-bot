@@ -13,7 +13,7 @@ export default async function initBirthdays(guild: Guild) {
     const date = [...birthday.date.split('.')]
     schedule.scheduleJob(
       birthday.userId,
-      { date: date[0], month: date[1] },
+      { date: date[0], month: Number(date[1]) - 1 },
       async () => {
         const randomId = Math.floor(Math.random() * 100 + Date.now()).toString()
         const user = guild.members.cache.get(birthday.userId)
