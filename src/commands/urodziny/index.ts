@@ -73,7 +73,7 @@ export async function execute(interaction: CommandInteraction) {
     const date = [...birthday.date.split('.')]
     schedule.scheduleJob(
       birthday.userId,
-      { date: date[0], month: date[1] },
+      { date: date[0], month: Number(date[1]) - 1 },
       () => {
         const randomId = Math.floor(Math.random() * 100 + Date.now()).toString()
         const role = interaction.guild?.roles.cache.find(
