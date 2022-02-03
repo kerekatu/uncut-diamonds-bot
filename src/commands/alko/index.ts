@@ -11,6 +11,7 @@ import {
 } from 'discord.js'
 import { CONSTANTS } from '../../utils/constants'
 import { PrismaClient } from '@prisma/client'
+import { embedColor } from '../../config'
 
 const prisma = new PrismaClient()
 const recentlyUsed = new Set()
@@ -56,7 +57,7 @@ export async function execute(interaction: CommandInteraction) {
       })
 
       return new MessageEmbed()
-        .setColor(CONSTANTS.color)
+        .setColor(embedColor)
         .setAuthor({
           name: `${user.username}`,
           iconURL: user.displayAvatarURL(),
@@ -149,7 +150,7 @@ export async function execute(interaction: CommandInteraction) {
       return await interaction.reply({ content: 'Coś poszło nie tak...' })
 
     const embed = new MessageEmbed()
-      .setColor(CONSTANTS.color)
+      .setColor(embedColor)
       .setTitle(randomItem.title)
       .setImage(
         `${

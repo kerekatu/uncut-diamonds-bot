@@ -1,26 +1,33 @@
-import { ActivitiesOptions, ClientUser, Guild } from 'discord.js'
+import { ClientUser, Guild } from 'discord.js'
+import { presenceData } from '../config'
 
-export default async function initActivityList(guild: Guild, user: ClientUser) {
-  const list: { activity: string; type: ActivitiesOptions['type'] }[] = [
-    { activity: 'nawalony już jak ściana', type: 'LISTENING' },
-    { activity: 'uncutdiamonds.top', type: 'WATCHING' },
-    { activity: 'przywołuje demona hybrydę', type: 'STREAMING' },
-    { activity: 'twitch.tv/tunczyczka', type: 'WATCHING' },
-    { activity: '/alko', type: 'PLAYING' },
-    { activity: `wraz z ${guild?.memberCount} diamentami`, type: 'PLAYING' },
-  ]
+export default function initActivityList(guild: Guild, user: ClientUser) {
+  function formatActivity(text: string) {
+    let newText = text
 
-  user.setActivity(list[0].activity, {
-    type: list[0].type,
-  })
+    if (text.includes('{userCount}')) {
+      newText = newText.replace(/{userCount}/g, guild?.memberCount.toString())
+    }
+
+    return newText
+  }
+
+  function setActivity(index: number) {
+    const activity = presenceData.activities.map((activity) =>
+      Object.assign(activity, { name: formatActivity(activity.name) })
+    )
+    user.setActivity(`${activity[index].name} | uncutdiamonds.top`, {
+      type: activity[index].type,
+    })
+  }
+
+  setActivity(0)
 
   let index = 1
   setInterval(() => {
-    if (index < list.length) index++
-    if (index === list.length) index = 0
+    if (index < presenceData.activities.length) index++
+    if (index === presenceData.activities.length) index = 0
 
-    user.setActivity(list[index].activity, {
-      type: list[index].type,
-    })
-  }, 1000 * 60 * 10)
+    setActivity(index)
+  }, presenceData.interval)
 }

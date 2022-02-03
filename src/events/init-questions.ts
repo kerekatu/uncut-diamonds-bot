@@ -1,7 +1,8 @@
 import { Prisma, PrismaClient } from '@prisma/client'
 import { Client, MessageEmbed } from 'discord.js'
 import schedule from 'node-schedule'
-import { COMMANDS, CONSTANTS } from '../utils/constants'
+import { embedColor } from '../config'
+import { COMMANDS } from '../utils/constants'
 
 const prisma = new PrismaClient()
 
@@ -24,7 +25,7 @@ export default async function initQuestions(client: Client) {
     return console.error('Taki kanał nie istnieje')
 
   const embed = new MessageEmbed()
-    .setColor(CONSTANTS.color)
+    .setColor(embedColor)
     .setTitle(
       `📖 PYTANIE DNIA • ${questions.currentIndex + 1}/${
         questions.questions.length + 1
@@ -41,7 +42,11 @@ export default async function initQuestions(client: Client) {
     )
 
   // at 00:00 everyday
-  schedule.scheduleJob(randomId, '0 0 * * *', async () => {
+  const scheduleRule = new schedule.RecurrenceRule()
+  scheduleRule.hour = 0
+  scheduleRule.minute = 0
+  scheduleRule.tz = 'CET'
+  schedule.scheduleJob(randomId, scheduleRule, async () => {
     await guildChannel.send({ embeds: [embed] })
 
     const updateQuestionIndex = await prisma.questions.update({

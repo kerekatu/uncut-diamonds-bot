@@ -7,12 +7,12 @@ import {
   MessageEmbed,
 } from 'discord.js'
 import fetch from 'isomorphic-fetch'
+import { embedColor } from '../../config'
 import { ShopItem } from '../../types'
-import { CONSTANTS } from '../../utils/constants'
 import { addSpaceEveryCharacter } from '../../utils/helpers'
 
 export const data = new SlashCommandBuilder()
-  .setName('info')
+  .setName('pomoc')
   .setDescription('💡 Wyświetla informacje na temat serwera')
   .addStringOption((option) =>
     option
@@ -29,7 +29,7 @@ export const data = new SlashCommandBuilder()
 export async function execute(interaction: CommandInteraction) {
   if (interaction.options.getString('kategoria') === 'strona') {
     const embed = new MessageEmbed()
-      .setColor(CONSTANTS.color)
+      .setColor(embedColor)
       .setTitle('Strona Internetowa')
       .setDescription(`https://uncutdiamonds.top`)
 
@@ -66,7 +66,7 @@ export async function execute(interaction: CommandInteraction) {
         .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
       return new MessageEmbed()
-        .setColor(CONSTANTS.color)
+        .setColor(embedColor)
         .setAuthor({
           name: 'LISTA PRZEDMIOTÓW • SKLEP',
           url: 'https://uncutdiamonds.top/shop',
@@ -155,7 +155,7 @@ export async function execute(interaction: CommandInteraction) {
     })
   } else if (interaction.options.getString('kategoria') === 'dotacje') {
     const embed = new MessageEmbed()
-      .setColor(CONSTANTS.color)
+      .setColor(embedColor)
       .setTitle('Dotacje na serwer')
       .setDescription('https://tipply.pl/u/uncutdiamonds')
 
