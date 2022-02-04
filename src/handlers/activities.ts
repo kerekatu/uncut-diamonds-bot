@@ -1,7 +1,7 @@
 import { ClientUser, Guild } from 'discord.js'
 import { presenceData } from '../config'
 
-export default function initActivityList(guild: Guild, user: ClientUser) {
+export default function handleActivities(guild: Guild, user: ClientUser) {
   function formatActivity(text: string) {
     let newText = text
 

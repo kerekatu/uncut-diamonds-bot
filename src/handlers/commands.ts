@@ -1,11 +1,11 @@
 import { REST } from '@discordjs/rest'
 import { Routes } from 'discord-api-types/v9'
-import config from './config'
-import * as commandModules from './commands'
-import { Command } from './types'
+import config from '../config'
+import * as commandModules from '../commands'
+import { Command } from '../../typings'
 import { SlashCommandBuilder } from '@discordjs/builders'
 
-const loadCommands = async () => {
+const handleCommands = async () => {
   const commands: SlashCommandBuilder[] = []
 
   for (const module of Object.values<Command>(commandModules as any)) {
@@ -26,4 +26,4 @@ const loadCommands = async () => {
   }
 }
 
-export default loadCommands
+export default handleCommands

@@ -4,7 +4,7 @@ import schedule from 'node-schedule'
 
 const prisma = new PrismaClient()
 
-export default async function initBirthdays(guild: Guild) {
+export default async function handleBirthdays(guild: Guild) {
   const birthdays = await prisma.birthdays.findMany()
 
   if (!birthdays) return console.error('Błąd zapytania')

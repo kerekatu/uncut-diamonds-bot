@@ -35,9 +35,9 @@ export const presenceData = {
   interval: 1000 * 60 * 10,
 }
 
-const { APP_ID, GUILD_ID, BOT_TOKEN } = process.env
+const { APP_ID, GUILD_ID, BOT_TOKEN, UNBELIEVABOAT_TOKEN } = process.env
 
-if (!APP_ID || !GUILD_ID || !BOT_TOKEN) {
+if (!APP_ID || !GUILD_ID || !BOT_TOKEN || !UNBELIEVABOAT_TOKEN) {
   throw new Error('Missing environment variables')
 }
 
@@ -45,6 +45,7 @@ const config = {
   APP_ID,
   GUILD_ID,
   BOT_TOKEN,
+  UNBELIEVABOAT_TOKEN,
 }
 
 export default config

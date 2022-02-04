@@ -34,3 +34,14 @@ model Channels {
   channelId   String
   commandName String @unique
 }
+
+model Bets {
+  id         Int    @id @default(autoincrement())
+  betterId   String
+  betterName String
+  userId     String
+  userName   String
+  amount     String
+
+  @@unique(fields: [betterId, userId], name: "betId")
+}

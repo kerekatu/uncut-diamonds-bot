@@ -8,7 +8,7 @@ import {
 } from 'discord.js'
 import fetch from 'isomorphic-fetch'
 import { embedColor } from '../../config'
-import { ShopItem } from '../../types'
+import { ShopItem } from '../../../typings'
 import { addSpaceEveryCharacter } from '../../utils/helpers'
 
 export const data = new SlashCommandBuilder()

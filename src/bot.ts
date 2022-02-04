@@ -1,8 +1,8 @@
 import { Client } from 'discord.js'
 import config, { clientOptions } from './config'
 import * as commandModules from './commands'
-import { Command } from './types'
-import handleReadyEvent from './events/ready-event'
+import { Command } from '../typings'
+import handleReadyEvent from './events/ready'
 
 const commands: { [key: string]: Command } = Object(commandModules)
 

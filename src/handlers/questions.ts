@@ -6,7 +6,7 @@ import { COMMANDS } from '../utils/constants'
 
 const prisma = new PrismaClient()
 
-export default async function initQuestions(client: Client) {
+export default async function handleQuestions(client: Client) {
   const questions = await prisma.questions.findFirst()
 
   if (!questions || !Array.isArray(questions.questions))
