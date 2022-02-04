@@ -221,7 +221,7 @@
 
 "@types/isomorphic-fetch@^0.0.35":
   version "0.0.35"
-  resolved "https://registry.npmjs.org/@types/isomorphic-fetch/-/isomorphic-fetch-0.0.35.tgz"
+  resolved "https://registry.yarnpkg.com/@types/isomorphic-fetch/-/isomorphic-fetch-0.0.35.tgz#c1c0d402daac324582b6186b91f8905340ea3361"
   integrity sha512-DaZNUvLDCAnCTjgwxgiL1eQdxIKEpNLOlTNtAgnZc50bG2copGhRrFN9/PxPBuJe+tZVLCbQ7ls0xveXVRPkvw==
 
 "@types/json-schema@^7.0.9":

@@ -3,6 +3,7 @@ import { CommandInteraction } from 'discord.js'
 import { Prisma, PrismaClient } from '@prisma/client'
 import config from '../../config'
 import { UserBalance } from '../../../typings'
+import fetch from 'isomorphic-fetch'
 
 const prisma = new PrismaClient()
 
