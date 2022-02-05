@@ -45,3 +45,17 @@ model Bets {
 
   @@unique(fields: [betterId, userId], name: "betId")
 }
+
+model Events {
+  id   Int      @id @default(autoincrement())
+  name String
+  date DateTime
+
+
+}
+
+model EventUsers {
+  id       Int    @id @default(autoincrement())
+  userId   String
+  userName String
+}

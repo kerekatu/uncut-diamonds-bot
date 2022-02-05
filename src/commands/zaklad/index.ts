@@ -48,7 +48,7 @@ export async function execute(interaction: CommandInteraction) {
 
   try {
     const userBalance = await fetch(
-      `https://unbelievaboat.com/api/v1/guilds/${config.GUILD_ID}/users/${user.id}`,
+      `https://unbelievaboat.com/api/v1/guilds/${config.GUILD_ID}/users/${interaction.member?.user.username}`,
       {
         headers: {
           Authorization: config.UNBELIEVABOAT_TOKEN,
