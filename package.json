@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
-    "dev": "tsc -w & node build/index.js"
+    "dev": "tsc -w & nodemon -w build build/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +33,7 @@
     "@typescript-eslint/parser": "^5.9.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.6.0",
+    "nodemon": "^2.0.15",
     "prisma": "^3.8.1",
     "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.8"

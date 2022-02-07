@@ -1,4 +1,8 @@
-import { ApplicationCommandOptionType, EmojiResolvable } from 'discord.js'
+import {
+  ApplicationCommandOptionType,
+  CommandInteraction,
+  EmojiResolvable,
+} from 'discord.js'
 
 export function addSpaceEveryCharacter(string: string | number) {
   if (!string) return
@@ -31,4 +35,44 @@ export function convertTypeToMethod(
   else if (type === 'SUB_COMMAND_GROUP') return 'addSubcommandGroup'
 
   return null
+}
+
+export async function validateDate(
+  day: number | null,
+  month: number | null,
+  year: number | null,
+  interaction: CommandInteraction
+) {
+  if (!day || !month || !year) {
+    await interaction.reply('Data nie została w pełni wybrana!')
+
+    return false
+  } else if (daysInMonth(month, year) < day) {
+    await interaction.reply(
+      `Ten miesiąc ma ${daysInMonth(month, year)} dni, nie ${day}!`
+    )
+
+    return false
+  } else if (
+    year < 1960 ||
+    year > new Date().getFullYear() ||
+    month > 12 ||
+    month < 0 ||
+    day < 0 ||
+    day > 31
+  ) {
+    await interaction.reply('Błędna data!')
+
+    return false
+  }
+
+  return true
+}
+
+export function validateTime(hour: number | null, minute: number | null) {
+  if (!hour?.toString() || !minute?.toString()) return false
+
+  if (hour > 23 || hour < 0 || minute > 59 || minute < 0) return false
+
+  return true
 }

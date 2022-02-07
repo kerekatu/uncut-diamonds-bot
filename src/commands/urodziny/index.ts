@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 import { CommandInteraction, GuildMemberRoleManager } from 'discord.js'
-import { daysInMonth } from '../../utils/helpers'
+import { validateDate } from '../../utils/helpers'
 import schedule from 'node-schedule'
 import { Prisma, PrismaClient } from '@prisma/client'
 
@@ -38,22 +38,8 @@ export async function execute(interaction: CommandInteraction) {
   const month = interaction.options.getNumber('miesiąc')
   const year = interaction.options.getNumber('rok')
 
-  if (!day || !month || !year) {
-    return await interaction.reply('Data nie została w pełni wybrana!')
-  } else if (daysInMonth(month, year) < day) {
-    return await interaction.reply(
-      `Ten miesiąc ma ${daysInMonth(month, year)} dni, nie ${day}!`
-    )
-  } else if (
-    year < 1960 ||
-    year > new Date().getFullYear() ||
-    month > 12 ||
-    month < 0 ||
-    day < 0 ||
-    day > 31
-  ) {
-    return await interaction.reply('Błędna data!')
-  }
+  const date = await validateDate(day, month, year, interaction)
+  if (!date) return
 
   const birthdayExists = await prisma.birthdays.findUnique({
     where: { userId: interaction.member?.user.id },
