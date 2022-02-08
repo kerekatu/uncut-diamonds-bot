@@ -183,7 +183,7 @@ export async function execute(interaction: CommandInteraction) {
 
         const collector = message.createReactionCollector({
           filter,
-          time: 1000 * 15,
+          time: 1000 * 30,
           maxEmojis: 2,
           max: 1,
         })
