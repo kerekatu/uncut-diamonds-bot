@@ -9,7 +9,6 @@ import {
   MessageReaction,
   User,
 } from 'discord.js'
-import { CONSTANTS } from '../../utils/constants'
 import { PrismaClient } from '@prisma/client'
 import { embedColor } from '../../config'
 
@@ -152,15 +151,7 @@ export async function execute(interaction: CommandInteraction) {
     const embed = new MessageEmbed()
       .setColor(embedColor)
       .setTitle(randomItem.title)
-      .setImage(
-        `${
-          randomItem?.link
-            ? randomItem.link.includes('upload/')
-              ? CONSTANTS.IMAGE_URLS.beer + '/' + randomItem.link
-              : CONSTANTS.IMAGE_URLS.alco + '/' + randomItem.link
-            : 'https://i.imgur.com/zR2tkVq.png'
-        } `
-      )
+      .setImage(`${randomItem?.link ?? 'https://i.imgur.com/zR2tkVq.png'} `)
 
     if (recentlyUsed.has(interaction.member?.user.id)) {
       interaction.reply('Poczekaj minutę przed następnym użyciem...')

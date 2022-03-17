@@ -1,9 +1,4 @@
-export const CONSTANTS = {
-  IMAGE_URLS: {
-    alco: 'https://sklep-domwhisky.pl',
-    beer: 'https://ocen-piwo.pl',
-  },
-}
+export const CONSTANTS = {}
 
 export const COMMANDS = {
   admin: {
