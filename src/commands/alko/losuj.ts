@@ -29,8 +29,8 @@ export default async function rollCommand(
   if (!randomItem)
     return await interaction.reply({ content: 'Coś poszło nie tak...' })
 
-  const numberOfRollsUsed = recentlyUsed.filter(() =>
-    recentlyUsed.every((el) => el.userId.indexOf(interaction.user.id) !== -1)
+  const numberOfRollsUsed = recentlyUsed.filter(
+    (uses) => uses.userId.indexOf(interaction.user.id) !== -1
   ).length
 
   const embed = new MessageEmbed()
@@ -41,7 +41,7 @@ export default async function rollCommand(
 
   if (numberOfRollsUsed >= NUMBER_OF_ROLLS) {
     const hasUser = recentlyUsed.find(
-      (el) => el.userId === interaction.member?.user.id
+      (user) => user.userId === interaction.member?.user.id
     )
 
     interaction.reply(
@@ -118,8 +118,8 @@ export default async function rollCommand(
     } else {
       addToRecentlyUsed()
       setTimeout(() => {
-        for (const item of recentlyUsed) {
-          if (item.userId === interaction.user.id) {
+        for (const user of recentlyUsed) {
+          if (user.userId === interaction.user.id) {
             recentlyUsed.splice(
               recentlyUsed.indexOf({ userId: interaction.user.id }),
               1
