@@ -10,25 +10,16 @@ const prisma = new PrismaClient()
 export const data = new SlashCommandBuilder()
   .setName('alko')
   .setDescription('🍺 Gra w zbieranie trunków')
-  .addSubcommand((subcommand) =>
-    subcommand
-      .setName('lista')
-      .setDescription('Zobacz listę własnych trunków lub innych graczy')
-      .addUserOption((option) =>
-        option
-          .setName('gracz')
-          .setDescription('Wybierz gracza')
-          .setRequired(true)
-      )
-  )
-  .addSubcommand((subcommand) =>
-    subcommand.setName('losuj').setDescription('Losuj trunek')
+  .addUserOption((option) =>
+    option.setName('gracz').setDescription('Wybierz gracza')
   )
 
 export async function execute(interaction: CommandInteraction) {
-  if (interaction.options.getSubcommand() === 'lista') {
-    await listCommand(interaction)
-  } else if (interaction.options.getSubcommand() === 'losuj') {
+  const userOption = interaction.options.getUser('gracz')
+
+  if (userOption) {
+    await listCommand(interaction, userOption)
+  } else {
     await rollCommand(interaction, prisma)
   }
 }

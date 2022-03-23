@@ -29,8 +29,8 @@ export default async function rollCommand(
   if (!randomItem)
     return await interaction.reply({ content: 'Coś poszło nie tak...' })
 
-  const numberOfRollsUsed = recentlyUsed.filter((item) =>
-    recentlyUsed.every((el) => el.userId.indexOf(item.userId) !== -1)
+  const numberOfRollsUsed = recentlyUsed.filter(() =>
+    recentlyUsed.every((el) => el.userId.indexOf(interaction.user.id) !== -1)
   ).length
 
   const embed = new MessageEmbed()
