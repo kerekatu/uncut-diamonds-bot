@@ -16,24 +16,6 @@ export const COMMANDS = {
       },
     },
   },
-  alko: {
-    name: 'alko',
-    description: '🍺 Gra w zbieranie trunków',
-    permissions: '',
-    options: [],
-  },
-  info: {
-    name: 'info',
-    description: '🎂 Dodaj swoje urodziny do kalendarza',
-    permissions: '',
-    options: [],
-  },
-  urodziny: {
-    name: 'urodziny',
-    description: '💡 Wyświetla informacje na temat serwera',
-    permissions: '',
-    options: [],
-  },
 }
 
 export const ERROR_REPLIES = {}

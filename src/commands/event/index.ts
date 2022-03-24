@@ -1,38 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
-import { Prisma, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import { CommandInteraction } from 'discord.js'
-import { CommandData } from '../../../typings'
-import createCommand from '../../utils/create-command'
-
-// const commandData: CommandData = {
-//   name: 'event',
-//   emoji: '🎫',
-//   description: 'Wyświetla listę rozpoczętych eventów',
-//   subCommands: [
-//     {
-//       name: 'start',
-//       description: 'Zakłada i rozpoczyna nowy event',
-//       options: [
-//         {
-//           name: 'nazwa',
-//           description: 'Nazwij event',
-//           type: 'STRING',
-//         },
-//       ],
-//     },
-//     {
-//       name: 'stop',
-//       description: 'Zakończa wybrany event',
-//       options: [
-//         {name: 'nazwa', description: 'Wybierz nazwę'}
-//       ]
-//     },
-//     {
-//       name: 'dołącz',
-//       description: 'Zapisuje osobę do eventu',
-//     },
-//   ],
-// }
 
 const prisma = new PrismaClient()
 
