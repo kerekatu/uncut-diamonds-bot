@@ -28,17 +28,26 @@ const createCommand = (data: CommandData) => {
               return newSubcommand
             }
 
-            const addOption = (newSubcommand as any)[methodType](
-              (o: SlashCommandSubcommandBuilder) =>
-                o.setName(option.name).setDescription(option.description)
+            newSubcommand[methodType]((o: SlashCommandSubcommandBuilder) =>
+              o.setName(option.name).setDescription(option.description)
             )
-
-            addOption()
           }
         }
 
         return newSubcommand
       })
+    }
+  } else if (data.options) {
+    for (const option of data.options) {
+      const methodType = convertTypeToMethod(option.type)
+
+      if (!option.type || !methodType) {
+        return command
+      }
+
+      command[methodType]((o: SlashCommandSubcommandBuilder) =>
+        o.setName(option.name).setDescription(option.description)
+      )
     }
   }
 

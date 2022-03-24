@@ -16,8 +16,9 @@ export interface CommandData {
   description: string
   emoji?: EmojiResolvable
   defaultPermissions?: boolean
+  permissionRole?: string
   options?: ApplicationCommandOption[]
-  subCommands: {
+  subCommands?: {
     name: string
     description: string
     options?: ApplicationCommandOption[]

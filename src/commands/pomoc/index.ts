@@ -10,21 +10,25 @@ import fetch from 'isomorphic-fetch'
 import { embedColor } from '../../config'
 import { ShopItem } from '../../../typings'
 import { addSpaceEveryCharacter } from '../../utils/helpers'
+import createCommand from '../../utils/create-command'
+import { COMMANDS } from '../../utils/constants'
 
-export const data = new SlashCommandBuilder()
-  .setName('pomoc')
-  .setDescription('💡 Wyświetla informacje na temat serwera')
-  .addStringOption((option) =>
-    option
-      .setName('kategoria')
-      .setDescription('Wybierz jedną z dostępnym kategorii')
-      .setRequired(true)
-      .setChoices([
-        ['strona', 'strona'],
-        ['sklep', 'sklep'],
-        ['dotacje', 'dotacje'],
-      ])
-  )
+// export const data = new SlashCommandBuilder()
+//   .setName('pomoc')
+//   .setDescription('💡 Wyświetla informacje na temat serwera')
+//   .addStringOption((option) =>
+//     option
+//       .setName('kategoria')
+//       .setDescription('Wybierz jedną z dostępnym kategorii')
+//       .setRequired(true)
+//       .setChoices([
+//         ['strona', 'strona'],
+//         ['sklep', 'sklep'],
+//         ['dotacje', 'dotacje'],
+//       ])
+//   )
+
+export const data = createCommand(COMMANDS.pomoc)
 
 export async function execute(interaction: CommandInteraction) {
   if (interaction.options.getString('kategoria') === 'strona') {

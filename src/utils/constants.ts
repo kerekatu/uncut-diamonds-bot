@@ -1,37 +1,49 @@
+import { CommandData } from '../../typings/index'
+
 export const CONSTANTS = {}
 
-export const COMMANDS = {
+export const COMMANDS: { [key: string]: CommandData } = {
   admin: {
     name: 'admin',
     description: '🧰 Komendy administracyjne',
     permissionRole: 'Keramzyt',
-    subCommands: {
-      pytania: {
+    subCommands: [
+      {
         name: 'pytania',
         description: '🧰 Ustawia kanał do pytań dnia',
       },
-      sugestie: {
+      {
         name: 'sugestie',
         description: '🧰 Ustawia kanał do sugestii',
       },
-    },
+    ],
   },
   alko: {
     name: 'alko',
     description: '🍺 Gra w zbieranie trunków',
-    permissions: '',
     options: [],
   },
-  info: {
-    name: 'info',
-    description: '🎂 Dodaj swoje urodziny do kalendarza',
-    permissions: '',
-    options: [],
+  pomoc: {
+    name: 'pomoc',
+    description: 'Wyświetla informacje na temat serwera',
+    emoji: '💡',
+    options: [
+      {
+        type: 'STRING',
+        name: 'kategoria',
+        description: 'Wybierz jedną z dostępnym kategorii',
+        required: true,
+        choices: [
+          { name: 'strona', value: 'strona' },
+          { name: 'sklep', value: 'sklep' },
+          { name: 'dotacje', value: 'dotacje' },
+        ],
+      },
+    ],
   },
   urodziny: {
     name: 'urodziny',
-    description: '💡 Wyświetla informacje na temat serwera',
-    permissions: '',
+    description: '🎂 Dodaj swoje urodziny do kalendarza',
     options: [],
   },
 }

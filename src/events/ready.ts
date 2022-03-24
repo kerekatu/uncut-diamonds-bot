@@ -1,6 +1,6 @@
 import { Client } from 'discord.js'
 import handleBirthdays from '../handlers/birthdays'
-import handleQuestions from '../handlers/questions'
+// import handleQuestions from '../handlers/questions'
 import handlePermission from '../handlers/permissions'
 import handleCommands from '../handlers/commands'
 import handleActivities from '../handlers/activities'
@@ -17,7 +17,7 @@ const handleReadyEvent = async (client: Client) => {
   await handlePermission(guild)
   await handleBirthdays(guild)
   await handleCommands()
-  await handleQuestions(client)
+  // await handleQuestions(client)
 }
 
 export default handleReadyEvent
