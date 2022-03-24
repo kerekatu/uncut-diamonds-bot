@@ -8,10 +8,12 @@ import {
 } from 'discord.js'
 import { embedColor } from '../../config'
 
-const COMMAND_DELAY = 1000 * 60 * 5
+const COMMAND_DELAY = 10000
 const NUMBER_OF_ROLLS = 3
 
-const recentlyUsed: { userId: string; time?: number }[] = []
+// current approach modifies the original array due to performance
+
+let recentlyUsed: { userId: string; time?: number }[] = []
 const recentlyLiked = new Set()
 
 export default async function rollCommand(
@@ -113,16 +115,14 @@ export default async function rollCommand(
         time: new Date().getTime() + COMMAND_DELAY,
       })
 
-    if (numberOfRollsUsed > 1) {
-      addToRecentlyUsed()
-    } else {
-      addToRecentlyUsed()
+    addToRecentlyUsed()
+
+    if (numberOfRollsUsed < 1) {
       setTimeout(() => {
         for (const user of recentlyUsed) {
           if (user.userId === interaction.user.id) {
-            recentlyUsed.splice(
-              recentlyUsed.indexOf({ userId: interaction.user.id }),
-              1
+            recentlyUsed = recentlyUsed.filter(
+              (user) => user.userId !== interaction.user.id
             )
           }
         }
