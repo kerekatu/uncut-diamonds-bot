@@ -8,8 +8,8 @@ declare global {
       DATABASE_URL: string
       EMBED_COLOR: string
       ALCO_COOLDOWN: number
-      ACTIVITIES: string[]
-      ACTIVITY_TYPES: string[]
+      ACTIVITIES: string
+      ACTIVITY_TYPES: string
     }
   }
 }
