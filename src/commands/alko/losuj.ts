@@ -8,7 +8,7 @@ import {
 } from 'discord.js'
 import { embedColor } from '../../config'
 
-const COMMAND_DELAY = process.env.ALCO_COOLDOWN ?? 1000 * 60
+const COMMAND_DELAY = +process.env.ALCO_COOLDOWN ?? 1000 * 60
 const NUMBER_OF_ROLLS = 3
 
 // current approach modifies the original array due to performance
