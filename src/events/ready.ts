@@ -1,7 +1,6 @@
 import { Client } from 'discord.js'
 import handleBirthdays from '../handlers/birthdays'
 import handleQuestions from '../handlers/questions'
-import handlePermission from '../handlers/permissions'
 import handleCommands from '../handlers/commands'
 import handleActivities from '../handlers/activities'
 
@@ -14,7 +13,6 @@ const handleReadyEvent = async (client: Client) => {
   if (!guild || !user) return console.error('Podany serwer nie istnieje!')
 
   handleActivities(guild, user)
-  await handlePermission(guild)
   await handleBirthdays(guild)
   await handleCommands()
   await handleQuestions(client)
