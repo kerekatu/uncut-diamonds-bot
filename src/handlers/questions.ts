@@ -1,18 +1,18 @@
-import { Prisma, PrismaClient } from '@prisma/client'
+import { PrismaClient, Questions } from '@prisma/client'
 import { Client, MessageEmbed } from 'discord.js'
 import schedule from 'node-schedule'
 import { embedColor } from '../config'
 import { COMMANDS } from '../utils/constants'
 
-const prisma = new PrismaClient()
+export const incrementQuestion = async (
+  questions: Questions | null,
+  client: Client
+) => {
+  if (!questions) return console.error('Błąd zapytania, lista pytań jest pusta')
 
-export default async function handleQuestions(client: Client) {
-  const questions = await prisma.questions.findFirst()
+  if (!Array.isArray(questions.questions))
+    return console.error('Błąd zapytania, wartość musi być tablicą')
 
-  if (!questions || !Array.isArray(questions.questions))
-    return console.error('Błąd zapytania')
-
-  const randomId = Math.floor(Math.random() * 100 + Date.now()).toString()
   const channel = await prisma.channels.findUnique({
     where: { commandName: COMMANDS.admin.subCommands.pytania.name },
   })
@@ -41,28 +41,37 @@ export default async function handleQuestions(client: Client) {
       }`
     )
 
+  await guildChannel.send({ embeds: [embed] })
+
+  const updateQuestionIndex = await prisma.questions.update({
+    where: {
+      id: 2,
+    },
+    data: {
+      currentIndex: !Array.isArray(questions.questions)
+        ? [...Array(questions.questions)]?.length - 1
+        : questions.questions?.length - 1 > questions.currentIndex
+        ? questions.currentIndex + 1
+        : 0,
+    },
+  })
+
+  if (!updateQuestionIndex)
+    return console.error('Nie udało się zaktualizować danych')
+}
+
+const prisma = new PrismaClient()
+
+export default async function handleQuestions(client: Client) {
+  const randomId = Math.floor(Math.random() * 100 + Date.now()).toString()
+
   // at 00:00 everyday
   const scheduleRule = new schedule.RecurrenceRule()
   scheduleRule.hour = 0
   scheduleRule.minute = 0
   scheduleRule.tz = 'CET'
   schedule.scheduleJob(randomId, scheduleRule, async () => {
-    await guildChannel.send({ embeds: [embed] })
-
-    const updateQuestionIndex = await prisma.questions.update({
-      where: {
-        id: 2,
-      },
-      data: {
-        currentIndex:
-          (<Prisma.JsonArray>questions.questions)?.length - 1 >
-          questions.currentIndex
-            ? questions.currentIndex + 1
-            : 0,
-      },
-    })
-
-    if (!updateQuestionIndex)
-      return console.error('Nie udało się zaktualizować danych')
+    const questions = await prisma.questions.findFirst()
+    await incrementQuestion(questions, client)
   })
 }

@@ -1,3 +1,4 @@
+import { incrementQuestion } from './../../handlers/questions'
 import { PrismaClient } from '@prisma/client'
 import { Client, CommandInteraction } from 'discord.js'
 import handleQuestions from '../../handlers/questions'
@@ -38,6 +39,9 @@ export default async function pytaniaCommand(
       ephemeral: true,
     })
 
+  const questions = await prisma.questions.findFirst()
+
+  await incrementQuestion(questions, client)
   await handleQuestions(client)
 
   return await interaction.reply({
