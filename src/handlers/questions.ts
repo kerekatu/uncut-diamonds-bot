@@ -65,11 +65,20 @@ const prisma = new PrismaClient()
 export default async function handleQuestions(client: Client) {
   const randomId = Math.floor(Math.random() * 100 + Date.now()).toString()
 
-  // at 00:00 everyday
+  // cancel any job before starting a new one
+  const jobKeys = Object.keys(schedule.scheduledJobs)
+
+  for (const jobKey in jobKeys) {
+    schedule.cancelJob(jobKey)
+  }
+
+  // will invoke at 00:00 everyday
   const scheduleRule = new schedule.RecurrenceRule()
   scheduleRule.hour = 0
   scheduleRule.minute = 0
   scheduleRule.tz = 'CET'
+
+  // schedule new job
   schedule.scheduleJob(randomId, scheduleRule, async () => {
     const questions = await prisma.questions.findFirst()
     await incrementQuestion(questions, client)
