@@ -10,10 +10,10 @@ export const COMMANDS = {
         name: 'pytania',
         description: '🧰 Ustawia kanał do pytań dnia',
       },
-      sugestie: {
-        name: 'sugestie',
-        description: '🧰 Ustawia kanał do sugestii',
-      },
+      kick: {
+        name: 'kick',
+        description: '🧰 Wyrzuca użytkownika z serwera i wysyła wiadomość na PV z zaproszeniem powrotnym'
+      }
     },
   },
 }
