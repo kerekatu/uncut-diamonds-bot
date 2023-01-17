@@ -2,8 +2,8 @@ import { SlashCommandBuilder } from '@discordjs/builders'
 import { CommandInteraction } from 'discord.js'
 import { PrismaClient } from '@prisma/client'
 
-import listCommand from './lista'
-import rollCommand from './losuj'
+import listCommand from './list'
+import rollCommand from './roll'
 
 const prisma = new PrismaClient()
 

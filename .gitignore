@@ -4,3 +4,4 @@ build/
 yarn.lock
 package.lock
 .vscode
+run-logs.log

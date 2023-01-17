@@ -4,15 +4,16 @@ import config from '../config'
 import * as commandModules from '../commands'
 import { Command } from '../../typings'
 import { SlashCommandBuilder } from '@discordjs/builders'
+import { logger, t } from '../utils/exports'
 
 const handleCommands = async () => {
-  const commands: SlashCommandBuilder[] = []
+  let commands: SlashCommandBuilder[] = []
 
   for (const module of Object.values<Command>(commandModules as any)) {
-    commands.push(module.data)
+    commands = [...commands, module.data]
   }
 
-  const rest = new REST({ version: '9' }).setToken(config.BOT_TOKEN)
+  const rest = new REST({ version: '10' }).setToken(config.BOT_TOKEN)
   try {
     await rest.put(
       Routes.applicationGuildCommands(config.APP_ID, config.GUILD_ID),
@@ -20,9 +21,9 @@ const handleCommands = async () => {
         body: commands,
       }
     )
-    console.log('Komendy (/) zostały poprawnie załadowane!')
+    logger.info(t.global.commands_initialized)
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
 

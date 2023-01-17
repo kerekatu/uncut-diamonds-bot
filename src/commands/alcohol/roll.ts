@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 import {
   CommandInteraction,
+  EmbedBuilder,
   Message,
-  MessageEmbed,
   MessageReaction,
   User,
 } from 'discord.js'
@@ -35,7 +35,7 @@ export default async function rollCommand(
     (uses) => uses.userId.indexOf(interaction.user.id) !== -1
   ).length
 
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setColor(embedColor)
     .setTitle(randomItem.title)
     .setImage(`${randomItem?.link ?? 'https://i.imgur.com/zR2tkVq.png'} `)
@@ -57,7 +57,10 @@ export default async function rollCommand(
     }, 5000)
   } else {
     if (randomItem.userId) {
-      embed.addField(`\u200b`, `Należy do <@${randomItem.userId}>`)
+      embed.addFields({
+        name: `\u200b`,
+        value: `Należy do <@${randomItem.userId}>`,
+      })
       await interaction.reply({
         embeds: [embed],
       })
@@ -97,7 +100,10 @@ export default async function rollCommand(
           })
           await interaction.editReply({
             embeds: [
-              embed.addField(`\u200b`, `Należy do <@${interaction.user.id}>`),
+              embed.addFields({
+                name: `\u200b`,
+                value: `Należy do <@${interaction.user.id}>`,
+              }),
             ],
           })
 

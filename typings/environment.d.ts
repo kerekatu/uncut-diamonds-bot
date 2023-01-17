@@ -1,3 +1,5 @@
+import { HexColorString } from 'discord.js'
+
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
@@ -6,10 +8,11 @@ declare global {
       GUILD_ID: string
       UNBELIEVABOAT_TOKEN: string
       DATABASE_URL: string
-      EMBED_COLOR: string
+      EMBED_COLOR: HexColorString
       ALCO_COOLDOWN: number
       ACTIVITIES: string
       ACTIVITY_TYPES: string
+      BIRTHDAY_ROLE_ID: string
     }
   }
 }

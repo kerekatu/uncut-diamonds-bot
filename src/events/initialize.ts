@@ -3,19 +3,20 @@ import handleBirthdays from '../handlers/birthdays'
 import handleQuestions from '../handlers/questions'
 import handleCommands from '../handlers/commands'
 import handleActivities from '../handlers/activities'
+import { logger, t } from '../utils/exports'
 
-const handleReadyEvent = async (client: Client) => {
-  console.log('Bot został zainicjalizowany!')
+const initializeBot = async (client: Client) => {
+  logger.info(t.global.bot_initialized)
 
-  const guild = client.guilds.cache.get(`${process.env.GUILD_ID}`)
+  const guild = client?.guilds.cache.get(process.env.GUILD_ID)
   const user = client?.user
 
-  if (!guild || !user) return console.error('Podany serwer nie istnieje!')
+  if (!guild || !user) return logger.error(t.global.unknown_server)
 
   handleActivities(guild, user)
   await handleBirthdays(guild)
-  await handleCommands()
   await handleQuestions(client)
+  await handleCommands()
 }
 
-export default handleReadyEvent
+export default initializeBot

@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 import { CommandInteraction, GuildMemberRoleManager } from 'discord.js'
-import { validateDate } from '../../utils/helpers'
+import { validateDate } from '../../utils/date'
 import schedule from 'node-schedule'
 import { Prisma, PrismaClient } from '@prisma/client'
 
@@ -34,9 +34,9 @@ export const data = new SlashCommandBuilder()
   )
 
 export async function execute(interaction: CommandInteraction) {
-  const day = interaction.options.getNumber('dzień')
-  const month = interaction.options.getNumber('miesiąc')
-  const year = interaction.options.getNumber('rok')
+  const day = Number(interaction.options.get('dzień')?.value)
+  const month = Number(interaction.options.get('miesiąc')?.value)
+  const year = Number(interaction.options.get('rok')?.value)
 
   const date = await validateDate(day, month, year, interaction)
   if (!date) return

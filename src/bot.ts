@@ -2,14 +2,15 @@ import { Client } from 'discord.js'
 import config, { clientOptions } from './config'
 import * as commandModules from './commands'
 import { Command } from '../typings'
-import handleReadyEvent from './events/ready'
+import initializeBot from './events/initialize'
+import { logger, t } from './utils/exports'
 
-const commands: { [key: string]: Command } = Object(commandModules)
+const commands: Record<string, Command> = Object(commandModules)
 
 export const client = new Client(clientOptions)
 
 client.once('ready', async () => {
-  await handleReadyEvent(client)
+  await initializeBot(client)
 })
 
 client.on('interactionCreate', async (interaction) => {
@@ -19,9 +20,9 @@ client.on('interactionCreate', async (interaction) => {
     const { commandName } = interaction
     commands[commandName].execute(interaction, client)
   } catch (error) {
-    console.log(error)
+    logger.error(error)
     await interaction.reply({
-      content: 'Wystąpił błąd przy wykonywaniu komendy!',
+      content: t.global.unknown_command,
       ephemeral: true,
     })
   }

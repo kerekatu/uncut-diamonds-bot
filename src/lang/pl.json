@@ -1,0 +1,34 @@
+{
+  "global": {
+    "unknown_command": "Wystąpił błąd przy wykonywaniu komendy, spróbuj ponownie za chwilę!",
+    "bot_initialized": "Bot został zainicjalizowany",
+    "commands_initialized": "Komendy (/) zostały poprawnie załadowane",
+    "unknown_server": "Podany serwer nie istnieje!",
+    "missing_env": "Nie ustawiona zmienna środowiskowa: ",
+    "missing_role": "Rola nie istnieje",
+    "url": "uncutdiamonds.top"
+  },
+  "date": {
+    "missing_date": "Data nie została w pełni wybrana!",
+    "wrong_day_amount": "Ten miesiąc ma {days} dni, nie {day}!",
+    "wrong_date": "Błędna data!"
+  },
+  "birthdays": {
+    "empty_list": "Lista dat urodzinowych jest pusta!"
+  },
+  "questions": {
+    "empty_list": "Lista pytań jest pusta!",
+    "not_array": "Lista musi być tablicą!",
+    "missing_channel": "Brak wybranego kanału do wysyłania pytań!",
+    "wrong_channel": "Wybrany kanał nie istnieje!",
+    "question_title": "🧠 PYTANIE DNIA",
+    "unable_to_update": "Nie udało się zaktualizować do kolejnego pytania"
+  },
+  "kick": {
+    "dm": "Drogi Misiaku!\n\nJest nam bardzo przykro, ale zauważyliśmy, że ostatnimi czasy nie udzielasz się na naszym serwerku. Pewnie masz dużo różnych, ważnych obowiązków. Postanowiliśmy wyprosić nieobecnych użytkowników żeby dać im znać, że nadal tu jesteśmy i brakuje Nam ich obecności.\n\nMożesz zawsze do nas wrócić i nadal być częścią Naszej wspaniałej społeczności.\n\nTęsknimy za Tobą! ♥️\n\nhttps://discord.gg/uncutdiamonds",
+    "user_option": "użytkownik",
+    "wrong_user": "Użytkownik o podanym nicku nie istnieje!",
+    "success_message": "Użytkownik został pomyślnie wyrzucony z serwera.",
+    "failed_message": "Nie udało się wysłać wiadomości do podanego użytkownika!"
+  }
+}

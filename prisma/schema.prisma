@@ -45,19 +45,3 @@ model Bets {
 
   @@unique(fields: [betterId, userId], name: "betId")
 }
-
-model Events {
-  id       Int          @id @default(autoincrement())
-  name     String       @unique
-  date     DateTime
-  finished Boolean      @default(false)
-  users    EventUsers[]
-}
-
-model EventUsers {
-  id      Int    @id @default(autoincrement())
-  userId  String
-  name    String
-  eventId Int
-  event   Events @relation(fields: [eventId], references: [id])
-}

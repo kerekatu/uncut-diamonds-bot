@@ -1,44 +1,45 @@
-import {
-  ActivityType,
-  ClientOptions,
-  HexColorString,
-  Intents,
-} from 'discord.js'
+import { Activities } from './../typings/index.d'
+import { ClientOptions, GatewayIntentBits } from 'discord.js'
 import dotenv from 'dotenv'
+import { t } from './utils/exports'
+
 dotenv.config()
 
-export const clientOptions: ClientOptions = {
+const clientOptions: ClientOptions = {
   intents: [
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.DIRECT_MESSAGES,
-    Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-    Intents.FLAGS.GUILD_MEMBERS,
-    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-    Intents.FLAGS.GUILD_PRESENCES,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.DirectMessageReactions,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.GuildPresences,
   ],
-  retryLimit: 3,
 }
 
-export const embedColor =
-  <HexColorString>(process.env.EMBED_COLOR as string) || '#00b2ff'
+const embedColor = process.env.EMBED_COLOR || '#00b2ff'
 
-export const presenceData = {
-  activities: (JSON.parse(process.env.ACTIVITIES || '[]') as string[]).map(
-    (activity, i) => ({
-      name: activity,
-      type: ((JSON.parse(process.env.ACTIVITY_TYPES || '[]') as string[])[
-        i
-      ].toUpperCase() || 'PLAYING') as Exclude<ActivityType, 'CUSTOM'>,
-    })
-  ),
+const ACTIVITIES = process.env.ACTIVITIES?.split(', ')
+const ACTIVITY_TYPES = process.env.ACTIVITY_TYPES?.split(', ')
+
+if (!ACTIVITIES || !ACTIVITY_TYPES) {
+  throw new Error(t.global.missing_env + 'ACTIVITIES | ACTIVITY_TYPES')
+}
+
+const presenceData = {
+  activities: ACTIVITIES.map((activity, i) => ({
+    name: activity,
+    type: ACTIVITY_TYPES[i] as unknown as keyof typeof Activities,
+  })),
   interval: 1000 * 60 * 10,
 }
 
 const { APP_ID, GUILD_ID, BOT_TOKEN, UNBELIEVABOAT_TOKEN } = process.env
 
 if (!APP_ID || !GUILD_ID || !BOT_TOKEN || !UNBELIEVABOAT_TOKEN) {
-  throw new Error('Missing environment variables')
+  throw new Error(
+    t.global.missing_env + 'APP_ID | GUILD_ID | BOT_TOKEN | UNBELIEVABOAT_TOKEN'
+  )
 }
 
 const config = {
@@ -47,5 +48,7 @@ const config = {
   BOT_TOKEN,
   UNBELIEVABOAT_TOKEN,
 }
+
+export { clientOptions, embedColor, presenceData }
 
 export default config

@@ -6,6 +6,15 @@ import {
   EmojiResolvable,
 } from 'discord.js'
 
+// exclude 'custom' from activity types
+export enum Activities {
+  Playing = 0,
+  Streaming = 1,
+  Listening = 2,
+  Watching = 3,
+  Competing = 5,
+}
+
 export interface Command {
   data: SlashCommandBuilder
   execute: (interaction: CommandInteraction, client: Client) => Promise<unknown>

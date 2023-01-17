@@ -1,10 +1,12 @@
 import { PrismaClient } from '@prisma/client'
 import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
   CommandInteraction,
-  MessageActionRow,
-  MessageButton,
+  ComponentType,
+  EmbedBuilder,
   MessageComponentInteraction,
-  MessageEmbed,
   User,
 } from 'discord.js'
 import { embedColor } from '../../config'
@@ -25,15 +27,15 @@ export default async function listCommand(
   })
   const numberOfPages = Math.ceil(productsCount / itemsPerPage)
 
-  const previousButton = new MessageButton()
+  const previousButton = new ButtonBuilder()
     .setCustomId(buttonPreviousId)
     .setLabel('Poprzednia')
-    .setStyle('PRIMARY')
+    .setStyle(ButtonStyle.Primary)
 
-  const nextButton = new MessageButton()
+  const nextButton = new ButtonBuilder()
     .setCustomId(buttonNextId)
     .setLabel('Następna')
-    .setStyle('PRIMARY')
+    .setStyle(ButtonStyle.Primary)
 
   const generateEmbed = async () => {
     const products = await prisma.alcohols.findMany({
@@ -44,15 +46,15 @@ export default async function listCommand(
       },
     })
 
-    return new MessageEmbed()
+    return new EmbedBuilder()
       .setColor(embedColor)
       .setAuthor({
         name: `${userOption.username}`,
         iconURL: userOption.displayAvatarURL(),
       })
-      .addField(
-        'LISTA GRACZA • TRUNKI',
-        `${
+      .addFields({
+        name: 'LISTA GRACZA • TRUNKI',
+        value: `${
           products
             ? products
                 .map(
@@ -63,8 +65,8 @@ export default async function listCommand(
                 )
                 .join(' ')
             : 'Twoja lista jest pusta'
-        }`
-      )
+        }`,
+      })
       .setFooter({
         text: `Strona ${currentPage}/${numberOfPages} • ${
           productsCount === 1
@@ -77,12 +79,10 @@ export default async function listCommand(
   await interaction.reply({
     embeds: [await generateEmbed()],
     components: [
-      new MessageActionRow({
-        components: [
-          previousButton.setDisabled(currentPage === 1),
-          nextButton.setDisabled(currentPage === numberOfPages),
-        ],
-      }),
+      new ActionRowBuilder<ButtonBuilder>().addComponents([
+        previousButton.setDisabled(currentPage === 1),
+        nextButton.setDisabled(currentPage === numberOfPages),
+      ]),
     ],
   })
 
@@ -92,7 +92,7 @@ export default async function listCommand(
 
   const collector = interaction.channel?.createMessageComponentCollector({
     filter,
-    componentType: 'BUTTON',
+    componentType: ComponentType.Button,
     time: 1000 * 60,
   })
 
@@ -102,12 +102,10 @@ export default async function listCommand(
       await i.update({
         embeds: [await generateEmbed()],
         components: [
-          new MessageActionRow({
-            components: [
-              previousButton.setDisabled(currentPage === 1),
-              nextButton.setDisabled(currentPage === numberOfPages),
-            ],
-          }),
+          new ActionRowBuilder<ButtonBuilder>().addComponents([
+            previousButton.setDisabled(currentPage === 1),
+            nextButton.setDisabled(currentPage === numberOfPages),
+          ]),
         ],
       })
     } else if (i.customId === buttonPreviousId) {
@@ -115,12 +113,10 @@ export default async function listCommand(
       await i.update({
         embeds: [await generateEmbed()],
         components: [
-          new MessageActionRow({
-            components: [
-              previousButton.setDisabled(currentPage === 1),
-              nextButton.setDisabled(currentPage === numberOfPages),
-            ],
-          }),
+          new ActionRowBuilder<ButtonBuilder>().addComponents([
+            previousButton.setDisabled(currentPage === 1),
+            nextButton.setDisabled(currentPage === numberOfPages),
+          ]),
         ],
       })
     }

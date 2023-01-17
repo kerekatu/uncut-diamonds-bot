@@ -1,23 +1,16 @@
-import { ClientUser, Guild } from 'discord.js'
+import { ActivityType, ClientUser, Guild } from 'discord.js'
 import { presenceData } from '../config'
+import { formatActivity } from '../utils/replaceVar'
+import { t } from '../utils/exports'
 
 export default function handleActivities(guild: Guild, user: ClientUser) {
-  function formatActivity(text: string) {
-    let newText = text
-
-    if (text.includes('{userCount}')) {
-      newText = newText.replace(/{userCount}/g, guild?.memberCount.toString())
-    }
-
-    return newText
-  }
-
-  function setActivity(index: number) {
-    const activity = presenceData.activities.map((activity) =>
-      Object.assign(activity, { name: formatActivity(activity.name) })
+  const setActivity = (index: number) => {
+    const activities = presenceData.activities.map((activity) =>
+      Object.assign(activity, { name: formatActivity(activity.name, guild) })
     )
-    user.setActivity(`${activity[index].name} | uncutdiamonds.top`, {
-      type: activity[index].type,
+
+    user.setActivity(`${activities[index].name} | ${t.global.url}`, {
+      type: ActivityType[activities[index].type],
     })
   }
 

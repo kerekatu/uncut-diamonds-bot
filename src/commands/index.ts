@@ -1,5 +1,3 @@
-export * as pomoc from './pomoc'
-export * as alko from './alko'
-export * as urodziny from './urodziny'
+export * as alko from './alcohol'
+export * as urodziny from './birthday'
 export * as admin from './admin'
-export * as zakład from './zaklad'

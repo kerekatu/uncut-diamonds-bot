@@ -1,4 +1,4 @@
-import { incrementQuestion } from './../../handlers/questions'
+import { incrementQuestion } from '../../handlers/questions'
 import { PrismaClient } from '@prisma/client'
 import { Client, CommandInteraction } from 'discord.js'
 import handleQuestions from '../../handlers/questions'
@@ -10,7 +10,7 @@ export default async function pytaniaCommand(
   client: Client
 ) {
   const channels = interaction.guild?.channels.cache
-  const interactionChannelId = interaction.options?.getChannel('kanał')?.id
+  const interactionChannelId = interaction.options?.get('kanał')?.channel?.id
 
   if (
     !interactionChannelId ||
