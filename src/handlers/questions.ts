@@ -1,5 +1,5 @@
 import { PrismaClient, Questions } from '@prisma/client'
-import { ChannelType, Client, EmbedBuilder } from 'discord.js'
+import { ChannelType, Client, ColorResolvable, EmbedBuilder } from 'discord.js'
 import schedule from 'node-schedule'
 import { embedColor } from '../config'
 import { COMMANDS } from '../utils/constants'

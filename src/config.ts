@@ -1,5 +1,10 @@
 import { Activities } from './../typings/index.d'
-import { ClientOptions, GatewayIntentBits } from 'discord.js'
+import {
+  ClientOptions,
+  ColorResolvable,
+  GatewayIntentBits,
+  HexColorString,
+} from 'discord.js'
 import dotenv from 'dotenv'
 import { t } from './utils/exports'
 
@@ -17,7 +22,7 @@ const clientOptions: ClientOptions = {
   ],
 }
 
-const embedColor = process.env.EMBED_COLOR || '#00b2ff'
+const embedColor = (process.env.EMBED_COLOR as ColorResolvable) || '#00b2ff'
 
 const ACTIVITIES = process.env.ACTIVITIES?.split(', ')
 const ACTIVITY_TYPES = process.env.ACTIVITY_TYPES?.split(', ')
