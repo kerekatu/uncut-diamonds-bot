@@ -17,17 +17,16 @@ export default async function kickCommand(
 
   try {
     await (member as GuildMember).send(kick.dm)
+    await (member as GuildMember).kick()
+
+    return await interaction.reply({
+      content: kick.success_message,
+      ephemeral: true,
+    })
   } catch (error) {
     return await interaction.reply({
       content: kick.failed_message,
       ephemeral: true,
     })
   }
-
-  await (member as GuildMember).kick()
-
-  return await interaction.reply({
-    content: kick.success_message,
-    ephemeral: true,
-  })
 }

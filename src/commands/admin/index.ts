@@ -3,9 +3,9 @@ import { ChannelType, Client, CommandInteraction } from 'discord.js'
 import pytaniaCommand from './questions'
 import kickCommand from './kick'
 import { t } from '../../utils/exports'
-import logUserCommand from './log-user'
+import logUsersCommand from './log-users'
 
-const { questions, kick } = t.commands.admin
+const { questions, kick, ['log-users']: logUsers } = t.commands.admin
 const { admin } = t.commands
 
 export const data = new SlashCommandBuilder()
@@ -37,10 +37,29 @@ export const data = new SlashCommandBuilder()
   )
   .addSubcommand((subcommand) =>
     subcommand
-      .setName('log-user')
-      .setDescription('Wysrywa listę użytkowników w danej roli')
+      .setName(logUsers.command_name)
+      .setDescription(logUsers.command_description)
       .addRoleOption((option) =>
-        option.setName('rola').setDescription('Wybierz rolę').setRequired(true)
+        option
+          .setName(t.options.role.name)
+          .setDescription(t.options.role.description)
+          .setRequired(true)
+      )
+      .addStringOption((option) =>
+        option
+          .setName(t.options.includes.name)
+          .setDescription(t.options.includes.description)
+          .addChoices(
+            {
+              name: logUsers.choices.single.name,
+              value: logUsers.choices.single.value,
+            },
+            {
+              name: logUsers.choices.all.name,
+              value: logUsers.choices.all.value,
+            }
+          )
+          .setRequired(true)
       )
   )
 
@@ -51,7 +70,7 @@ export async function execute(interaction: CommandInteraction, client: Client) {
     await pytaniaCommand(interaction, client)
   } else if (interaction.options.getSubcommand() === kick.command_name) {
     await kickCommand(interaction, client)
-  } else if (interaction.options.getSubcommand() === 'log-user') {
-    await logUserCommand(interaction, client)
+  } else if (interaction.options.getSubcommand() === logUsers.command_name) {
+    await logUsersCommand(interaction, client)
   }
 }

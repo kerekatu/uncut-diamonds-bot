@@ -14,7 +14,8 @@
       "name": "użytkownik",
       "description": "Wybierz nazwę użytkownika"
     },
-    "role": { "name": "rola", "description": "Wybierz rolę" }
+    "role": { "name": "rola", "description": "Wybierz rolę" },
+    "includes": { "name": "zawiera", "description": "Wybierz opcję" }
   },
   "date": {
     "missing_date": "Data nie została w pełni wybrana!",
@@ -53,7 +54,20 @@
       "log-users": {
         "command_name": "log-users",
         "command_description": "Wysrywa listę użytkowników w danej roli",
-        "wrong_role": "Podana rola nie istnieje"
+        "wrong_role": "Podana rola nie istnieje",
+        "wrong_server": "Podany serwer nie istnieje",
+        "empty_list": "Tej roli nie posiada żaden z użytkowników",
+        "failed_message": "Nie udało się wyświetlić listy!",
+        "choices": {
+          "single": {
+            "name": "jedną rolę",
+            "value": "jedna"
+          },
+          "all": {
+            "name": "wszystkie role",
+            "value": "wszystko"
+          }
+        }
       }
     }
   }
