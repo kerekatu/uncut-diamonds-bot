@@ -1,9 +1,10 @@
 import { PrismaClient, Questions } from '@prisma/client'
-import { ChannelType, Client, ColorResolvable, EmbedBuilder } from 'discord.js'
+import { ChannelType, Client, EmbedBuilder } from 'discord.js'
 import schedule from 'node-schedule'
 import { embedColor } from '../config'
-import { COMMANDS } from '../utils/constants'
 import { logger, t } from '../utils/exports'
+
+const { questions: questionCommand } = t.commands.admin
 
 export const incrementQuestion = async (
   questions: Questions | null,
@@ -15,7 +16,7 @@ export const incrementQuestion = async (
     return logger.error(t.questions.not_array)
 
   const channel = await prisma.channels.findUnique({
-    where: { commandName: COMMANDS.admin.subCommands.pytania.name },
+    where: { commandName: questionCommand.command_name },
   })
 
   if (!channel) return logger.error(t.questions.missing_channel)

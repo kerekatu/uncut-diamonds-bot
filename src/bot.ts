@@ -1,4 +1,4 @@
-import { Client } from 'discord.js'
+import { ChannelType, Client } from 'discord.js'
 import config, { clientOptions } from './config'
 import * as commandModules from './commands'
 import { Command } from '../typings'
@@ -25,6 +25,14 @@ client.on('interactionCreate', async (interaction) => {
       content: t.global.unknown_command,
       ephemeral: true,
     })
+  }
+})
+
+client.on('messageCreate', (message) => {
+  if (message.author.bot) return
+
+  if (message.channel.type === ChannelType.DM) {
+    logger.info(`${message.author.username}: ${message.content}`)
   }
 })
 

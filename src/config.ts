@@ -3,7 +3,7 @@ import {
   ClientOptions,
   ColorResolvable,
   GatewayIntentBits,
-  HexColorString,
+  Partials,
 } from 'discord.js'
 import dotenv from 'dotenv'
 import { t } from './utils/exports'
@@ -20,6 +20,7 @@ const clientOptions: ClientOptions = {
     GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.GuildPresences,
   ],
+  partials: [Partials.Message, Partials.Channel],
 }
 
 const embedColor = (process.env.EMBED_COLOR as ColorResolvable) || '#00b2ff'
