@@ -30,7 +30,7 @@ export const data = new SlashCommandBuilder()
       .setDescription(kick.command_description)
       .addUserOption((option) =>
         option
-          .setName(t.options.channel.name)
+          .setName(t.options.user.name)
           .setDescription(t.options.channel.description)
           .setRequired(true)
       )

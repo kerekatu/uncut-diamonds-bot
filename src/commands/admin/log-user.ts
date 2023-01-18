@@ -13,7 +13,7 @@ export default async function logUserCommand(
       ephemeral: true,
     })
 
-  let users: string[]
+  let users: string[] | undefined
 
   try {
     const guild = client.guilds.cache.get(config.GUILD_ID)
@@ -22,7 +22,7 @@ export default async function logUserCommand(
     users = guild.roles.cache
       .get(option.role?.id || '0')
       ?.members.filter((member) => member.roles.cache.size === 2)
-      .map((member) => `@${member.user.tag}`) as string[]
+      .map((member) => `@${member.user.tag}`)
 
     if (!users)
       return await interaction.reply({

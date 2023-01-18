@@ -10,7 +10,11 @@
   },
   "options": {
     "channel": { "name": "kanał", "description": "Wybierz kanał" },
-    "user": { "name": "użytkownik", "description": "Wybierz nazwę użytkownika" }
+    "user": {
+      "name": "użytkownik",
+      "description": "Wybierz nazwę użytkownika"
+    },
+    "role": { "name": "rola", "description": "Wybierz rolę" }
   },
   "date": {
     "missing_date": "Data nie została w pełni wybrana!",
@@ -45,6 +49,11 @@
       "questions": {
         "command_name": "pytania",
         "command_description": "Ustawia kanał do pytań dnia"
+      },
+      "log-users": {
+        "command_name": "log-users",
+        "command_description": "Wysrywa listę użytkowników w danej roli",
+        "wrong_role": "Podana rola nie istnieje"
       }
     }
   }
