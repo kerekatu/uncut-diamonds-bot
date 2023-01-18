@@ -29,14 +29,17 @@ export default async function logUsersCommand(
 
     users = guild.roles.cache
       .get(optionRole.role?.id || '0')
-      ?.members.filter((member) => {
+      ?.members.filter(async (member) => {
         const singleRoleNum = 2
 
         if (optionIncludes === logCommand.choices.single.value) {
           return member.roles.cache.size === singleRoleNum
         }
 
-        return
+        return await interaction.reply({
+          content: logCommand.empty_list,
+          ephemeral: true,
+        })
       })
       .map((member) => `@${member.user.tag}`)
 
