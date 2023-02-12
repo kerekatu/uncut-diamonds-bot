@@ -5,6 +5,7 @@ import handleCommands from '../handlers/commands'
 import handleActivities from '../handlers/activities'
 import { logger, t } from '../utils/exports'
 import config from '../config'
+import handleQuickShots from '../handlers/quickShots'
 
 const initializeBot = async (client: Client) => {
   logger.info(t.global.bot_initialized)
@@ -17,6 +18,7 @@ const initializeBot = async (client: Client) => {
   handleActivities(guild, user)
   await handleBirthdays(guild)
   await handleQuestions(client)
+  await handleQuickShots(client)
   await handleCommands()
 }
 

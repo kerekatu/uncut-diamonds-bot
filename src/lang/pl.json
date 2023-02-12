@@ -4,6 +4,7 @@
     "bot_initialized": "Bot został zainicjalizowany",
     "commands_initialized": "Komendy (/) zostały poprawnie załadowane",
     "unknown_server": "Podany serwer nie istnieje!",
+    "unknown_channel": "Podany kanał nie istnieje!",
     "missing_env": "Nie ustawiona zmienna środowiskowa: ",
     "missing_role": "Rola nie istnieje",
     "url": "uncutdiamonds.top"
@@ -22,16 +23,30 @@
     "wrong_day_amount": "Ten miesiąc ma {days} dni, nie {day}!",
     "wrong_date": "Błędna data!"
   },
-  "birthdays": {
-    "empty_list": "Lista dat urodzinowych jest pusta!"
-  },
-  "questions": {
-    "empty_list": "Lista pytań jest pusta!",
-    "not_array": "Lista musi być tablicą!",
-    "missing_channel": "Brak wybranego kanału do wysyłania pytań!",
-    "wrong_channel": "Wybrany kanał nie istnieje!",
-    "question_title": "🧠 PYTANIE DNIA",
-    "unable_to_update": "Nie udało się zaktualizować do kolejnego pytania"
+  "handlers": {
+    "birthdays": {
+      "empty_list": "Lista dat urodzinowych jest pusta!"
+    },
+    "questions": {
+      "empty_list": "Lista pytań jest pusta!",
+      "not_array": "Lista musi być tablicą!",
+      "missing_channel": "Brak wybranego kanału do wysyłania pytań!",
+      "wrong_channel": "Wybrany kanał nie istnieje!",
+      "question_title": "🧠 PYTANIE DNIA",
+      "update_error": "Nie udało się zaktualizować do kolejnego pytania!"
+    },
+    "quickShots": {
+      "empty_list": "Lista szybkich strzałów jest pusta!",
+      "not_array": "Lista musi być tablicą!",
+      "missing_channel": "Brak wybranego kanału do wysyłania szybkich strzałów!",
+      "wrong_channel": "Wybrany kanał nie istnieje!",
+      "embed_title": "💥 SZYBKI STRZAŁ!",
+      "reactions": {
+        "first": "1️⃣",
+        "second": "2️⃣"
+      },
+      "update_error": "Nie udało się zaktualizować do kolejnego szybkiego strzału!"
+    }
   },
   "commands": {
     "admin": {
@@ -49,9 +64,17 @@
       },
       "questions": {
         "command_name": "pytania",
-        "command_description": "Ustawia kanał do pytań dnia"
+        "command_description": "Ustawia kanał do pytań dnia",
+        "update_error": "Nie udało się dodać danych do bazy!",
+        "success_message": "Kanał do pytań został pomyślnie ustawiony!"
       },
-      "log-users": {
+      "quickShots": {
+        "command_name": "strzały",
+        "command_description": "Ustawia kanał do szybkich strzałów",
+        "update_error": "Nie udało się dodać danych do bazy!",
+        "success_message": "Kanał do szybkich strzałów został pomyślnie ustawiony!"
+      },
+      "logUsers": {
         "command_name": "log-users",
         "command_description": "Wysrywa listę użytkowników w danej roli",
         "wrong_role": "Podana rola nie istnieje",
@@ -69,6 +92,11 @@
           }
         }
       }
+    },
+    "alco": {
+      "command_name": "alko",
+      "command_description": "Gra w zbieranie trunków alkoholowych",
+      "command_emoji": "🍺"
     }
   }
 }

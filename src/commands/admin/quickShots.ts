@@ -1,12 +1,11 @@
-import { incrementQuestion } from '../../handlers/questions'
 import { PrismaClient } from '@prisma/client'
 import { Client, CommandInteraction } from 'discord.js'
-import handleQuestions from '../../handlers/questions'
 import { t } from '../../utils/exports'
+import handleQuickShots, { incrementQuickShot } from '../../handlers/quickShots'
 
 const prisma = new PrismaClient()
 
-export default async function questionsCommand(
+export default async function quickShotsCommand(
   interaction: CommandInteraction,
   client: Client
 ) {
@@ -26,28 +25,28 @@ export default async function questionsCommand(
 
   const assignedChannel = await prisma.channels.upsert({
     where: {
-      commandName: t.commands.admin.questions.command_name,
+      commandName: t.commands.admin.quickShots.command_name,
     },
     update: { channelId: interactionChannelId },
     create: {
-      commandName: t.commands.admin.questions.command_name,
+      commandName: t.commands.admin.quickShots.command_name,
       channelId: interactionChannelId,
     },
   })
 
   if (!assignedChannel)
     return await interaction.reply({
-      content: t.commands.admin.questions.update_error,
+      content: t.commands.admin.quickShots.update_error,
       ephemeral: true,
     })
 
-  const questions = await prisma.questions.findFirst()
+  const quickShots = await prisma.quickShots.findFirst()
 
-  await incrementQuestion(questions, client)
-  await handleQuestions(client)
+  await incrementQuickShot(quickShots, client)
+  await handleQuickShots(client)
 
   return await interaction.reply({
-    content: t.commands.admin.questions.success_message,
+    content: t.commands.admin.quickShots.success_message,
     ephemeral: true,
   })
 }

@@ -35,13 +35,8 @@ model Channels {
   commandName String @unique
 }
 
-model Bets {
-  id         Int    @id @default(autoincrement())
-  betterId   String
-  betterName String
-  userId     String
-  userName   String
-  amount     String
-
-  @@unique(fields: [betterId, userId], name: "betId")
+model QuickShots {
+  id           Int  @id @default(autoincrement())
+  quickShots   Json
+  currentIndex Int
 }

@@ -4,18 +4,23 @@ import { PrismaClient } from '@prisma/client'
 
 import listCommand from './list'
 import rollCommand from './roll'
+import { t } from '../../utils/exports'
 
 const prisma = new PrismaClient()
 
+const { alco } = t.commands
+
 export const data = new SlashCommandBuilder()
-  .setName('alko')
-  .setDescription('🍺 Gra w zbieranie trunków')
+  .setName(alco.command_name)
+  .setDescription(`${alco.command_emoji} ${alco.command_description}`)
   .addUserOption((option) =>
-    option.setName('gracz').setDescription('Wybierz gracza')
+    option
+      .setName(t.options.user.name)
+      .setDescription(t.options.user.description)
   )
 
 export async function execute(interaction: CommandInteraction) {
-  const userOption = interaction.options.getUser('gracz')
+  const userOption = interaction.options.getUser(t.options.user.name)
 
   if (userOption) {
     await listCommand(interaction, userOption)

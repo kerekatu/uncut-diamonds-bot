@@ -10,26 +10,26 @@ export const incrementQuestion = async (
   questions: Questions | null,
   client: Client
 ) => {
-  if (!questions) return logger.error(t.questions.empty_list)
+  if (!questions) return logger.error(t.handlers.questions.empty_list)
 
   if (!Array.isArray(questions.questions))
-    return logger.error(t.questions.not_array)
+    return logger.error(t.handlers.questions.not_array)
 
   const channel = await prisma.channels.findUnique({
     where: { commandName: questionCommand.command_name },
   })
 
-  if (!channel) return logger.error(t.questions.missing_channel)
+  if (!channel) return logger.error(t.handlers.questions.missing_channel)
 
   const guildChannel = client.channels.cache.get(channel.channelId)
 
   if (!guildChannel || guildChannel.type !== ChannelType.GuildText)
-    return logger.error(t.questions.wrong_channel)
+    return logger.error(t.handlers.questions.wrong_channel)
 
   const embed = new EmbedBuilder()
     .setColor(embedColor)
     .setTitle(
-      `${t.questions.question_title} • ${questions.currentIndex + 1}/${
+      `${t.handlers.questions.question_title} • ${questions.currentIndex + 1}/${
         questions.questions.length + 1
       }`
     )
@@ -58,7 +58,8 @@ export const incrementQuestion = async (
     },
   })
 
-  if (!updateQuestionIndex) return logger.error(t.questions.unable_to_update)
+  if (!updateQuestionIndex)
+    return logger.error(t.handlers.questions.update_error)
 }
 
 const prisma = new PrismaClient()

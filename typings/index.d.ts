@@ -60,3 +60,8 @@ export interface ShopItem {
     }
   }
 }
+
+export interface QuickShotsObj {
+  first: string
+  second: string
+}

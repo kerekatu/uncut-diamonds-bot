@@ -2,7 +2,9 @@ import { Client, CommandInteraction } from 'discord.js'
 import config from '../../config'
 import { t } from '../../utils/exports'
 
-const { ['log-users']: logCommand } = t.commands.admin
+const { logUsers } = t.commands.admin
+
+// doesn't handle messages that exceed 2000 characters
 
 export default async function logUsersCommand(
   interaction: CommandInteraction,
@@ -13,7 +15,7 @@ export default async function logUsersCommand(
 
   if (!optionRole || !optionIncludes)
     return await interaction.reply({
-      content: logCommand.wrong_role,
+      content: logUsers.wrong_role,
       ephemeral: true,
     })
 
@@ -23,7 +25,7 @@ export default async function logUsersCommand(
     const guild = client.guilds.cache.get(config.GUILD_ID)
     if (!guild)
       return await interaction.reply({
-        content: logCommand.wrong_server,
+        content: logUsers.wrong_server,
         ephemeral: true,
       })
 
@@ -32,7 +34,7 @@ export default async function logUsersCommand(
       ?.members.filter((member) => {
         const singleRoleNum = 2
 
-        if (optionIncludes === logCommand.choices.single.value) {
+        if (optionIncludes === logUsers.choices.single.value) {
           return member.roles.cache.size === singleRoleNum
         }
 
@@ -42,12 +44,12 @@ export default async function logUsersCommand(
 
     if (!users)
       return await interaction.reply({
-        content: logCommand.empty_list,
+        content: logUsers.empty_list,
         ephemeral: true,
       })
   } catch (error) {
     return await interaction.reply({
-      content: logCommand.failed_message,
+      content: logUsers.failed_message,
       ephemeral: true,
     })
   }

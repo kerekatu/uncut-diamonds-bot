@@ -13,7 +13,7 @@ export default async function handleBirthdays(guild: Guild) {
 
   const birthdays = await prisma.birthdays.findMany()
 
-  if (!birthdays) return logger.error(t.birthdays.empty_list)
+  if (!birthdays) return logger.error(t.handlers.birthdays.empty_list)
 
   for (const birthday of birthdays) {
     const date = [...birthday.date.split('.')]
