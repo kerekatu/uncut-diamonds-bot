@@ -40,8 +40,8 @@ export const postMessage = async (client: Client, guild: Guild) => {
 export default async function handleDailyGreet(client: Client, guild: Guild) {
   // will invoke at 16:00 everyday
   const scheduleRule = new schedule.RecurrenceRule()
-  scheduleRule.hour = 20
-  scheduleRule.minute = 55
+  scheduleRule.hour = 16
+  scheduleRule.minute = 0
 
   scheduleRule.tz = 'CET'
 
