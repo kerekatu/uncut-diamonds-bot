@@ -46,6 +46,18 @@
         "second": "2️⃣"
       },
       "update_error": "Nie udało się zaktualizować do kolejnego szybkiego strzału!"
+    },
+    "dailyGreet": {
+      "users_error": "Nie udało się pobrać listy użytkowników!",
+      "messages": [
+        "Siema! Wyglądasz dzisiaj kozacko",
+        "Hej, wyglądasz dzisiaj pięknie",
+        "Hejka, cudownie dzisiaj wyglądasz",
+        "Siemanko! wiedz że wyglądasz dzisiaj pięknie",
+        "Hejo, piękna z Ciebie osoba",
+        "H-hej... Pięknie dziś wyglądasz"
+      ],
+      "emoji": "<:pepe_heart:913174351933747312>"
     }
   },
   "commands": {

@@ -1,4 +1,4 @@
-import { Client } from 'discord.js'
+import { Client, Guild } from 'discord.js'
 import handleBirthdays from '../handlers/birthdays'
 import handleQuestions from '../handlers/questions'
 import handleCommands from '../handlers/commands'
@@ -6,6 +6,7 @@ import handleActivities from '../handlers/activities'
 import { logger, t } from '../utils/exports'
 import config from '../config'
 import handleQuickShots from '../handlers/quickShots'
+import handleDailyGreet from '../handlers/dailyGreet'
 
 const initializeBot = async (client: Client) => {
   logger.info(t.global.bot_initialized)
@@ -19,6 +20,7 @@ const initializeBot = async (client: Client) => {
   await handleBirthdays(guild)
   await handleQuestions(client)
   await handleQuickShots(client)
+  await handleDailyGreet(client, guild)
   await handleCommands()
 }
 

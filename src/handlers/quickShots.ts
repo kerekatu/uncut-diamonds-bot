@@ -70,7 +70,7 @@ export const incrementQuickShot = async (
 const prisma = new PrismaClient()
 
 export default async function handleQuickShots(client: Client) {
-  // will invoke at 00:00 everyday
+  // will invoke at 9:00 everyday
   const scheduleRule = new schedule.RecurrenceRule()
   scheduleRule.hour = 9
   scheduleRule.minute = 0

@@ -13,6 +13,7 @@ declare global {
       ACTIVITIES: string
       ACTIVITY_TYPES: string
       BIRTHDAY_ROLE_ID: string
+      DAILY_GREET_CHANNEL_ID: string
     }
   }
 }
